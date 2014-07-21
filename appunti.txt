@@ -1,0 +1,19 @@
+Gioco del sasso, carta, forbici
+
+1) Da una homepage reindirizzo l'utente su una pagina per
+   scegliere il proprio segno.
+2) una volta selezionato il segno, l' utente clicca sul
+   bottone "gioca".
+3) Con il click del bottone viene spedita la scelta dell'
+   utente
+4) ad un controller che decide un segno random ed elabora
+   il vincitore.
+5) Viene visualizzato il vincitore su una pagina e 
+   l' utente può decidere se giocare di nuovo.
+____________________________________________________________
+
+6) Viene visualizzato il vincitore dirrettamente sotto la
+   scelta dei segni
+7) Viene visualizzato il punteggio aggiornato ad ogni 
+   partita
+   

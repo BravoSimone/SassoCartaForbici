@@ -1,0 +1,9 @@
+<body>
+  <h1>Scegli il tuo segno</h1>
+  <%= form_tag(result_game_result_path, :method => "get") do %>
+    <% @games.each do |game| %>
+      <%= submit_tag game.first.to_s, :type => 'submit', choise: game %>
+      <div></div>
+    <% end %>
+  <% end %>
+</body>
