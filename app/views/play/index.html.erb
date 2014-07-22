@@ -1,17 +1,21 @@
-<!DOCTYPE html>
-<body>
-  <h1>Scegli il tuo segno</h1>
-  <%= form_tag( play_index_path, :method => "get") do %>
+<h1>Scegli il tuo segno</h1>
+<%= form_tag( play_index_path, :method => "get") do %>
+  <div class="btn-group-vertical">
     <% @games.each do |game| %>
-      <%= submit_tag game.first.to_s, :type => 'submit', choise: game %>
-      <div></div>
+      <%= submit_tag game.first.to_s,:class => "btn btn-primary btn-block",:type => 'submit', choise: game %>
     <% end %>
-    <%= submit_tag "Nuova Partita", :type => 'submit'%>
-  <% end %>
-  <% if session[:winner] != nil %>
-    <%session[:winner].split('-').each do |stringa| %>
-      <% p stringa %>
-      <p><%= stringa %></p>
+    <%= submit_tag "Nuova Partita",:class => "btn btn-danger btn-block" ,:type => 'submit'%>
+  </div>
+<% end %>
+<% if session[:winner] != nil %>
+  <%session[:winner].split('-').each do |stringa| %>
+    <% if stringa[-1].to_i == 1%>
+      <div class="alert alert-success" role="alert"><%= stringa %></div>
+    <% elsif stringa[-1].to_i == 2%>
+      <div class="alert alert-danger" role="alert"><%= stringa %></div>
+    <% elsif stringa == "Parità" %>
+      <div class="alert alert-warning" role="alert"><%= stringa %></div>
     <% end %>
   <% end %>
-</body>
+<% end %>
+
