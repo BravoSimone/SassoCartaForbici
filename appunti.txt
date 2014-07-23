@@ -1,19 +1,29 @@
-Gioco del sasso, carta, forbici
-
-1) Da una homepage reindirizzo l'utente su una pagina per
-   scegliere il proprio segno.
-2) una volta selezionato il segno, l' utente clicca sul
-   bottone "gioca".
-3) Con il click del bottone viene spedita la scelta dell'
-   utente
-4) ad un controller che decide un segno random ed elabora
-   il vincitore.
-5) Viene visualizzato il vincitore su una pagina e 
-   l' utente può decidere se giocare di nuovo.
-____________________________________________________________
-
-6) Viene visualizzato il vincitore dirrettamente sotto la
-   scelta dei segni
-7) Viene visualizzato il punteggio aggiornato ad ogni 
-   partita
-   
+Gioco del sasso, carta, forbici                                   [||]
+                                                                  [||]
+1) Da una homepage reindirizzo l'utente su una pagina per         [||]
+   scegliere il proprio segno.                                    [||]
+2) una volta selezionato il segno, l' utente clicca sul           [||]
+   bottone "gioca".                                               [||]
+3) Con il click del bottone viene spedita la scelta dell'         [||]
+   utente                                                         [||]
+4) ad un controller che decide un segno random ed elabora         [||]
+   il vincitore.                                                  [||]
+5) Viene visualizzato il vincitore su una pagina e                [||]
+   l' utente può decidere se giocare di nuovo.                    [||]
+_____________________________________________________________     [||]
+                                                                  [||]
+6) Viene visualizzato il vincitore dirrettamente sotto la         [||]
+   scelta dei segni                                               [||]
+_____________________________________________________________     [||]
+-------------------------MULTIPLAYER-------------------------     [||]
+                                                                  [||]
+7) In un database registro il nome utente ,password ,             [||]
+   punteggio, se ha notifiche e lo stato online                   [||]
+8) In un altro database registro il nome dello sfidante           [||]
+   il nome della persona sfidata e il segno scelto dallo          [||]
+   sfidante                                                       [||]
+9) Successivamente l'utente sfidato può scegliere un segno        [||]
+   a questo punto viene salvato nel database e viene              [||]
+   subito decretato il vincitore.                                 [||]
+10)Viene incrementato il punteggio del vincitore                  [||]
+11)Si puo vedere lo storico delle partite di un utente            [||]
