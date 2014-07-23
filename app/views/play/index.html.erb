@@ -2,9 +2,10 @@
 <%= form_tag( play_index_path, :method => "get") do %>
   <div class="btn-group-vertical">
     <% @games.each do |game| %>
-      <%= submit_tag game.first.to_s,:class => "btn btn-primary btn-block",:type => 'submit', choise: game %>
+      <%= submit_tag game.first.to_s,:class => "btn btn-default btn-block",:type => 'submit', choise: game %>
     <% end %>
     <%= submit_tag "Nuova Partita",:class => "btn btn-danger btn-block" ,:type => 'submit'%>
+    <%= link_to 'Fine Partita', welcome_index_path(), :class => "btn btn-danger btn-block"%>
   </div>
 <% end %>
 <% if session[:winner] != nil %>
