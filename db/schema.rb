@@ -11,7 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140723084137) do
+ActiveRecord::Schema.define(version: 20140723132908) do
+
+  create_table "matches", force: true do |t|
+    t.integer  "player_1_id"
+    t.integer  "player_2_id"
+    t.integer  "p1_win"
+    t.integer  "p2_win"
+    t.integer  "request_close"
+    t.integer  "accept_close"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
