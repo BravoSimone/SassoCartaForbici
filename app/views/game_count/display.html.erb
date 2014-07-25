@@ -1,0 +1,21 @@
+<h1>Guarda tutti i match</h1>
+<table class="table">
+  <td>/</td>
+  <td>Giocatore 1</td>
+  <td>Giocatore 2</td>
+  <td>Partite vinte G1</td>
+  <td>Partite vinte G2</td>
+  <td>Fine partita G1?</td>
+  <td>Fine partita G2?</td>
+  <% @matches.each do |match| %>
+    <tr>
+      <td><button type="button" class="btn-xs btn-default">Vai alla partita</button></td>
+      <td><%= match.player_1.email unless match.player_1.nil? %></td>
+      <td><%= match.player_2.email unless match.player_2.nil? %></td>
+      <td><%= match.p1_win %></td>
+      <td><%= match.p2_win %></td>
+      <td><%= match.request_close %></td>
+      <td><%= match.accept_close %></td>      
+    </tr>
+  <% end %>
+</table>
