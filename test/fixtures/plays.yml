@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  player_one_sign: MyString
+  player_two_sign: MyString
+  players_match_id: 1
+
+two:
+  player_one_sign: MyString
+  player_two_sign: MyString
+  players_match_id: 1

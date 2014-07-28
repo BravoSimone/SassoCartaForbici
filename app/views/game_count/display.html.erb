@@ -9,7 +9,7 @@
   <td>Fine partita G2?</td>
   <% @matches.each do |match| %>
     <tr>
-      <td><button type="button" class="btn-xs btn-default">Vai alla partita</button></td>
+      <td><button type="button" class="btn-xs btn-link">Vai alla partita</button></td>
       <td><%= match.player_1.email unless match.player_1.nil? %></td>
       <td><%= match.player_2.email unless match.player_2.nil? %></td>
       <td><%= match.p1_win %></td>

@@ -9,7 +9,12 @@ Rails.application.routes.draw do
   
   get 'game_count/display'
   
+  get 'game_count/challange_players'
+  
+  get 'manage_matches/generate_match'
+  
   post 'result/game_result'
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

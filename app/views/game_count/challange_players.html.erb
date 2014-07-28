@@ -1,0 +1,17 @@
+<h1> Sfida altri giocatori </h1>
+<%= form_tag(manage_matches_generate_match_path, :method => "get") do %>
+  <table class="table">
+  <% position = "left" %>
+    <% @players.each do |player| %>
+        <% unless player.email == current_user.email %>
+          <% if position == "left" %>
+            <tr>
+              <td><%= submit_tag player.email,:class => "btn-xs btn-link",:type => 'submit', choise: player.email%></td>
+            <% else %>
+          <% end %>
+        <% end %>
+      </tr>
+    <% end %>
+  </table>
+<% end %>
+<a href="<%= welcome_index_path %>">Torna indietro</a>
