@@ -9,7 +9,7 @@ class ManageMatchesController < ApplicationController
       end
     end
     if @match == nil
-      new_match = { :player_1_id => current_user.id, :player_2_id => current_user.get_user_by_email(@opponent).to_a.first[:id],
+      new_match = { :player_1_id => current_user.id, :player_2_id => User.find_by_email(@opponent).id,
                     :p1_win => 0, :p2_win => 0}
       @match = Match.create(new_match)
       @title = "La partita è stata creata"

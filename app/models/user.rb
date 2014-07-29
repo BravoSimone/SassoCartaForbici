@@ -10,9 +10,4 @@ class User < ActiveRecord::Base
   def self.all_matches(id)
     Match.where("player_1_id = ? OR player_2_id = ?", id, id)
   end
-  
-  def self.get_user_by_email(email)
-    User.find_by_email(email)
-  end
-
 end

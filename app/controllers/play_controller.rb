@@ -34,13 +34,14 @@ class PlayController < ApplicationController
     @games = ::Game.new.universal_dictionary
     
     if @opponent == current_user.email
-      @player_1 = User.get_user_by_email(@opponent)
+      @player_1 = User.find_by_email(@opponent)
       @player_2 = current_user
     else
       @player_1 = current_user
-      @player_2 = User.get_user_by_email(@opponent)
+      @player_2 = User.find_by_email(@opponent)
     end
     @match = Match.find_match_by_id(@player_1.id ,@player_2.id)
+    @history = @match.plays.to_a
   end
   
   def game_processor
@@ -48,18 +49,20 @@ class PlayController < ApplicationController
     @opponent = @parameters.tr('"\[],','').split(' ')[0]
     @sign = @parameters.tr('"\[],','').split(' ')[1]
     
-    match = Match.find_match_by_id(User.get_user_by_email(@opponent).id , current_user.id )
+    match = Match.find_match_by_id(User.find_by_email(@opponent).id , current_user.id )
     
-    play = Match.find_all_plays_by_match(match.id).last
+    play = match.plays.last
     
-    if(plays.last.player_one_sign.nil? && plays.last.player_two_sign.nil?)
-      match.plays.last = Play.create
+    if play.nil? || (play.player_one_sign.present? && play.player_one_sign.present?)
+      play = Play.create
+      play.players_match_id = match.id
     end
+    
     if(match.player_1_id == current_user.id)
-      plays.last.player_one_sign = @sign
+      play.player_one_sign = @sign
     else
-      plays.last.player_two_sign = @sign
+      play.player_two_sign = @sign
     end
-    
+    play.save
   end
 end
