@@ -1,0 +1,14 @@
+<h1>Scegli il tuo segno</h1>
+<%= form_tag(play_game_processor_path, :method => "get") do %>
+  <div class="btn-group-vertical">
+    <% @games.each do |game| %>
+      <button name="play" value="<%= [@opponent, game.first] %>" type="submit" class="btn btn-default btn-block" ><%= game.first %></button>
+    <% end %>
+    <%= submit_tag "Nuova Partita",:class => "btn btn-primary btn-block" ,:type => 'submit'%>
+    <%= link_to 'Fine Partita', welcome_index_path(), :class => "btn btn-primary btn-block"%>
+  </div>
+<% end %>
+<% all_plays = @match.plays.all.to_a %>
+<% all_plays.reverse_each do |play| %>
+  <%= play  %>
+<% end %>

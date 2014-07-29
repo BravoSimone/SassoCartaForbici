@@ -1,4 +1,6 @@
 <h1><%= @title %></h1>
-<a href="<%= play_index_path %>"> Vai alla partita </a>
+<%= form_tag(play_multiplayer_path, :method => "get") do %>
+  <button name="match" value="<%= @opponent%>" type="submit" class="btn btn-link" >Vai alla partita!!</button>
+<% end %>
 <div></div>
 <a href="<%= game_count_challange_players_path %>">Torna indietro</a>

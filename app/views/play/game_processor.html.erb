@@ -1,0 +1,4 @@
+<h1>Hai scelto <%= @sign %></h1>
+<%= form_tag(play_multiplayer_path, :method => "get") do %>
+  <button name="match" value="<%= @opponent %>" type="submit" class="btn btn-link btn-xl" >Torna indietro</button>
+<% end %>

@@ -1,6 +1,6 @@
 class GameCountController< ApplicationController
   def display
-    @matches = current_user.all_matches(current_user.id).to_a
+    @matches = User.all_matches(current_user.id).to_a
   end
   
   def challange_players
