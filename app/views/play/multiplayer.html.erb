@@ -12,3 +12,6 @@
 <% all_plays.reverse_each do |play| %>
   <%= play  %>
 <% end %>
+<% if @history.present? %>
+  <%= @history %>
+<% end %>

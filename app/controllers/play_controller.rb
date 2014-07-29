@@ -40,8 +40,15 @@ class PlayController < ApplicationController
       @player_1 = current_user
       @player_2 = User.find_by_email(@opponent)
     end
-    @match = Match.find_match_by_id(@player_1.id ,@player_2.id)
-    @history = @match.plays.to_a
+#     @match = Match.find_match_by_id(@player_1.id.to_i ,@player_2.id.to_i)
+    @match = Match.last
+    @history = @match.plays.all.to_a
+    
+    p "___________________________________________"
+    p @history.to_a
+    p @match
+    p "___________________________________________"
+    
   end
   
   def game_processor
