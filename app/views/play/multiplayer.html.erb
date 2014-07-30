@@ -1,17 +1,25 @@
-<h1>Scegli il tuo segno</h1>
-<%= form_tag(play_game_processor_path, :method => "get") do %>
+<% if @allowed_to_play %>
+  <h1>Scegli il tuo segno</h1>
   <div class="btn-group-vertical">
-    <% @games.each do |game| %>
-      <button name="play" value="<%= [@opponent, game.first] %>" type="submit" class="btn btn-default btn-block" ><%= game.first %></button>
+    <% @games.keys.each do |game| %>
+      <%= link_to(game, play_game_processor_path(match_id: @match.id , play: game), class: "btn btn-default btn-block") %>
     <% end %>
-    <%= submit_tag "Nuova Partita",:class => "btn btn-primary btn-block" ,:type => 'submit'%>
     <%= link_to 'Fine Partita', welcome_index_path(), :class => "btn btn-primary btn-block"%>
   </div>
-<% end %>
-<% all_plays = @match.plays.all.to_a %>
-<% all_plays.reverse_each do |play| %>
-  <%= play  %>
-<% end %>
-<% if @history.present? %>
-  <%= @history %>
+  <h2>Risultati partita</h2>
+  <% if @winners_string != nil %>
+    <% winners = @winners_string.split('-') %>
+    <% winners.each do |winner| %>
+      <% if winner[-1].to_i == 1%>
+          <div class="alert alert-info" role="alert"><%= winner %></div>
+        <% elsif winner[-1].to_i == 2%>
+          <div class="alert alert-danger" role="alert"><%= winner %></div>
+        <% elsif winner == "Parità" %>
+          <div class="alert alert-warning" role="alert"><%= winner %></div>
+        <% end %>
+    <% end %>
+  <% end %>
+<% else %>
+  <h1>Hai gia scelto il tuo segno!!</h1>
+  <%= link_to 'Torna alla indietro', welcome_index_path(), :class => "btn btn-link"%>
 <% end %>

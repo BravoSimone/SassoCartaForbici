@@ -30,46 +30,63 @@ class PlayController < ApplicationController
   end
   
   def multiplayer
-    @opponent = params[:match]
     @games = ::Game.new.universal_dictionary
+    @match = Match.find(params[:match_id].to_i)
+    @history = @match.match_plays.all.to_a
+    @winners_string = generate_winners_strings(params[:match_id])
+    @allowed_to_play = true
     
-    if @opponent == current_user.email
-      @player_1 = User.find_by_email(@opponent)
-      @player_2 = current_user
-    else
-      @player_1 = current_user
-      @player_2 = User.find_by_email(@opponent)
+    if @match.match_plays.present?
+      if @match.player_1_id == current_user.id
+        if @match.match_plays.last.player_one_sign.present? && @match.match_plays.last.player_two_sign.nil?
+          @allowed_to_play = false
+        end
+      else
+        if @match.match_plays.last.player_two_sign.present? && @match.match_plays.last.player_one_sign.nil?
+          @allowed_to_play = false
+        end
+      end
     end
-#     @match = Match.find_match_by_id(@player_1.id.to_i ,@player_2.id.to_i)
-    @match = Match.last
-    @history = @match.plays.all.to_a
-    
-    p "___________________________________________"
-    p @history.to_a
-    p @match
-    p "___________________________________________"
-    
   end
   
   def game_processor
-    @parameters = params[:play]
-    @opponent = @parameters.tr('"\[],','').split(' ')[0]
-    @sign = @parameters.tr('"\[],','').split(' ')[1]
+    @sign = params[:play]
+    @match = Match.find(params[:match_id])
+    @match_id = @match.id
+    play = @match.match_plays.last
     
-    match = Match.find_match_by_id(User.find_by_email(@opponent).id , current_user.id )
-    
-    play = match.plays.last
+    if play.present? && play.player_one_sign.present? && play.player_one_sign.present?
+      # Control the winner
+      @winner = Game.new.compare(play.player_one_sign, play.player_two_sign)
+      if @winner[-1].to_i == 1
+        @match.p1_win = @match.p1_win + 1
+      elsif @winner[-1].to_i == 2
+        @match.p2_win = @match.p2_win + 1
+      end
+    end
     
     if play.nil? || (play.player_one_sign.present? && play.player_one_sign.present?)
       play = Play.create
-      play.players_match_id = match.id
+      play.players_match_id = @match.id
     end
     
-    if(match.player_1_id == current_user.id)
+    if(@match.player_1_id == current_user.id)
       play.player_one_sign = @sign
     else
       play.player_two_sign = @sign
     end
     play.save
   end
+end
+
+def generate_winners_strings(match_id)
+  plays = Match.find(match_id).match_plays.to_a
+  games = Game.new
+  winners_string = ''
+  plays.reverse_each do |play|
+    if play.player_one_sign.present? && play.player_two_sign.present?
+      winners_string = winners_string + '-' + games.compare(play.player_one_sign, play.player_two_sign)
+    end
+  end
+  winners_string
 end

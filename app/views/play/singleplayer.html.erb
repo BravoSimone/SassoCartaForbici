@@ -11,7 +11,7 @@
 <% if session[:winner] != nil %>
   <%session[:winner].split('-').reverse_each do |stringa| %>
     <% if stringa[-1].to_i == 1%>
-      <div class="alert alert-success" role="alert"><%= stringa %></div>
+      <div class="alert alert-info" role="alert"><%= stringa %></div>
     <% elsif stringa[-1].to_i == 2%>
       <div class="alert alert-danger" role="alert"><%= stringa %></div>
     <% elsif stringa == "Parità" %>

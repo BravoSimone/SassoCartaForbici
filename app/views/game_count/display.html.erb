@@ -10,12 +10,7 @@
   <% @matches.each do |match| %>
     <tr>
       <form action = "<%= play_multiplayer_path %>">
-        <% if match.player_1.email == current_user.email%>
-          <% email = match.player_2.email  %>
-        <% else %>
-          <% email = match.player_1.email  %>
-        <%end%>
-        <td><button name="match" value="<%= email %>" type="submit" class="btn btn-link", >Vai alla partita!!</button></td>
+        <td><%= link_to "Vai alla partita!!", play_multiplayer_path(:match_id => match.id) %> </td>
         <td><%= match.player_1.email unless match.player_1.nil? %></td>
         <td><%= match.player_2.email unless match.player_2.nil? %></td>
         <td><%= match.p1_win %></td>
