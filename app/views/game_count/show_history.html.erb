@@ -1,23 +1,17 @@
-<h1>Guarda tutti i match in corso</h1>
+<h1>Guarda la cronologia dei match</h1>
 <table class="table">
-  <td>/</td>
   <td>Giocatore 1</td>
   <td>Giocatore 2</td>
   <td>Partite vinte G1</td>
   <td>Partite vinte G2</td>
-  <td>Fine partita G1?</td>
-  <td>Fine partita G2?</td>
-  <% @matches.each do |match| %>
+  <% @history.each do |match| %>
     <tr>
       <form action = "<%= play_multiplayer_path %>">
-        <% if match.request_close.nil? || match.accept_close.nil? %>
-          <td><%= link_to "Vai alla partita!!", play_multiplayer_path(:match_id => match.id) %> </td>
+        <% if match.request_close.present? && match.accept_close.present? %>
           <td><%= match.player_1.email unless match.player_1.nil? %></td>
           <td><%= match.player_2.email unless match.player_2.nil? %></td>
           <td><%= match.p1_win %></td>
           <td><%= match.p2_win %></td>
-          <td><%= match.request_close %></td>
-          <td><%= match.accept_close %></td>
         <% end %>
       </form>
     </tr>

@@ -3,7 +3,7 @@ class ManageMatchesController < ApplicationController
     @opponent = params[:player_id].to_i
     all_matches = User.all_matches(current_user.id).to_a
     all_matches.each do |match|
-      if match.player_1_id.to_i == @opponent || match.player_2_id.to_i == @opponent
+      if (match.player_1_id.to_i == @opponent || match.player_2_id.to_i == @opponent)&&(match.request_close.nil? && match.accept_close.nil?)
         @title = "Il giocatore è stato gia sfidato"
         @match = match.id
       end
@@ -13,6 +13,31 @@ class ManageMatchesController < ApplicationController
                     :p1_win => 0, :p2_win => 0}
       @match = Match.create(new_match).id
       @title = "La partita è stata creata"
+    end
+  end
+  
+  def close_match
+    @close = params[:close]
+    @match = Match.find(params[:match_id].to_i)
+    if params[:choise].present?
+      if params[:choise] == true
+        @match.request_close = 1
+        @match.accept_close = 1
+        @match.save
+      else
+        @match.request_close = nil
+        @match.accept_close = nil
+        @match.save
+      end
+    end
+    if @close
+      if current_user.id == @match.player_1_id
+        @match.request_close = 1
+        @match.save
+      elsif current_user.id == @match.player_2_id
+        @match.accept_close = 1
+        @match.save
+      end
     end
   end
 end

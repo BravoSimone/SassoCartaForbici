@@ -1,0 +1,13 @@
+<% if @choise.nil? %>
+  <h1>La tua richiesta</h1>
+  <h2>per chiudere il match è stata inviata</h2>
+<% else %>
+  <% if @choise %>
+    <h1>Il match</h1>
+    <h2>E' stato chiuso correttamente</h2>
+  <% else %>
+    <h1>Hai rifiutato</h1>
+    <h2>Di chiudere il match</h2>
+  <% end %>
+<% end %>
+<a href="<%= welcome_index_path %>">Torna indietro</a>

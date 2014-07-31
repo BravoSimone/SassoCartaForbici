@@ -1,25 +1,54 @@
-<% if @allowed_to_play %>
-  <h1>Scegli il tuo segno</h1>
-  <div class="btn-group-vertical">
-    <% @games.keys.each do |game| %>
-      <%= link_to(game, play_game_processor_path(match_id: @match.id , play: game), class: "btn btn-default btn-block") %>
-    <% end %>
-    <%= link_to 'Fine Partita', welcome_index_path(), :class => "btn btn-primary btn-block"%>
-  </div>
-  <h2>Risultati partita</h2>
-  <% if @winners_string != nil %>
-    <% winners = @winners_string.split('-') %>
-    <% winners.each do |winner| %>
-      <% if winner[-1].to_i == 1%>
-          <div class="alert alert-info" role="alert"><%= winner %></div>
-        <% elsif winner[-1].to_i == 2%>
-          <div class="alert alert-danger" role="alert"><%= winner %></div>
-        <% elsif winner == "Parità" %>
-          <div class="alert alert-warning" role="alert"><%= winner %></div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-8">
+      <% if @match.request_close.present? && current_user.id != @match.player_1_id %>
+        <h1>Il giocatore 2 vuole terminare la partita</h1>
+        <div class="btn-group">
+          <%= link_to('Accetta', manage_matches_close_match_path(match_id: @match.id , choise: true), class: "btn btn-success") %>
+          <%= link_to('Rifiuta', manage_matches_close_match_path(match_id: @match.id , choise: false), class: "btn btn-danger") %>
+        </div>
+        <%= link_to 'Torna indietro', game_count_display_path, :class => "btn btn-link"%>
+      <% elsif @match.accept_close.present?  && current_user.id != @match.player_2_id %>
+        <h1>Il giocatore 1 vuole terminare la partita</h1>
+        <div class="btn-group">
+          <%= link_to('Accetta', manage_matches_close_match_path(match_id: @match.id , choise: true), class: "btn btn-success") %>
+          <%= link_to('Rifiuta', manage_matches_close_match_path(match_id: @match.id , choise: false), class: "btn btn-danger") %>
+        </div>
+        <%= link_to 'Torna indietro', game_count_display_path, :class => "btn btn-link"%>
+      <% else %>
+        <% if @allowed_to_play %>
+          <h1>Scegli il tuo segno</h1>
+          <div class="btn-group-vertical">
+            <% @games.keys.each do |game| %>
+              <%= link_to(game, play_game_processor_path(match_id: @match.id , play: game), class: "btn btn-default btn-block") %>
+            <% end %>
+            <%= link_to 'Esci', welcome_index_path(), :class => "btn btn-primary btn-block"%>
+            <%= link_to 'Chiudi partita', manage_matches_close_match_path(close: true, match_id: @match.id), :class => "btn btn-primary btn-block"%>
+          </div>
+          <h2>Risultati partita</h2>
+          <% if @winners_string != nil %>
+            <% winners = @winners_string.split('-') %>
+            <% winners.each do |winner| %>
+              <% if winner[-1].to_i == 1%>
+                  <div class="alert alert-info" role="alert"><%= winner %></div>
+                <% elsif winner[-1].to_i == 2%>
+                  <div class="alert alert-danger" role="alert"><%= winner %></div>
+                <% elsif winner == "Parità" %>
+                  <div class="alert alert-warning" role="alert"><%= winner %></div>
+                <% end %>
+            <% end %>
+          <% end %>
+        <% else %>
+          <h1>Hai gia scelto il tuo segno!!</h1>
+          <%= link_to 'Torna indietro', game_count_display_path, :class => "btn btn-link"%>
         <% end %>
-    <% end %>
-  <% end %>
-<% else %>
-  <h1>Hai gia scelto il tuo segno!!</h1>
-  <%= link_to 'Torna alla indietro', game_count_display_path, :class => "btn btn-link"%>
-<% end %>
+      <% end %>
+    </div>
+    <div class="col-md-4">
+      <h3>Vinte</h3>
+      <h2><%= @match.p1_win %></h2>
+      <h3>Perse</h3>
+      <h2><%= @match.p2_win %></h2>
+    </div>
+  </div>
+</div>

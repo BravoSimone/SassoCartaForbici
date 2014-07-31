@@ -5,7 +5,7 @@
       <%= submit_tag game.first.to_s,:class => "btn btn-default btn-block",:type => 'submit', choise: game %>
     <% end %>
     <%= submit_tag "Nuova Partita",:class => "btn btn-primary btn-block" ,:type => 'submit'%>
-    <%= link_to 'Fine Partita', welcome_index_path(), :class => "btn btn-primary btn-block"%>
+    <%= link_to 'Esci', welcome_index_path(), :class => "btn btn-primary btn-block"%>
   </div>
 <% end %>
 <% if session[:winner] != nil %>

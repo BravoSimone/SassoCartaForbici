@@ -6,4 +6,8 @@ class GameCountController< ApplicationController
   def challange_players
     @players = User.all.to_a
   end
+  
+  def show_history
+    @history = User.all_matches(current_user.id).to_a
+  end
 end
