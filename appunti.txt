@@ -27,3 +27,13 @@ _____________________________________________________________     [||]
    subito decretato il vincitore.                                 [||]
 10)Viene incrementato il punteggio del vincitore                  [||]
 11)Si puo vedere lo storico delle partite di un utente            [||]
+----------------------------------------------------------------------
+
+Implementato parzialmente MP
+Fixare BUG torna indetro:
+  Dopo che si è lanciato un segno e la giocata
+  viene conclusa quando si lancia un altro segno
+  non viene salvato
+  
+Da implementare
+  Visualizzare lo storico delle partite giocate

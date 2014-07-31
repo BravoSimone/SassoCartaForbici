@@ -65,17 +65,19 @@ class PlayController < ApplicationController
       end
     end
     
-    if play.nil? || (play.player_one_sign.present? && play.player_one_sign.present?)
-      play = Play.create
-      play.players_match_id = @match.id
+    if play.nil? || (play.player_one_sign.present? && play.player_two_sign.present?)
+      play = Play.create({:players_match_id => @match_id})
     end
+    
+    play = @match.match_plays.last
     
     if(@match.player_1_id == current_user.id)
       play.player_one_sign = @sign
+      play.save
     else
       play.player_two_sign = @sign
+      play.save
     end
-    play.save
   end
 end
 
