@@ -2,21 +2,21 @@
   <div class="row">
     <div class="col-md-8">
       <% if (@match.request_close.present? && current_user.id == @match.player_1_id) || ( @match.accept_close.present?  && current_user.id == @match.player_2_id) %>
-      <h1>Hai richiesto al chiusura del match</h1>
+      <h1>Hai gia richiesto la chiusura del match</h1>
       <%= link_to 'Torna indietro', game_count_display_path, :class => "btn btn-link"%>
       <% else %>
         <% if @match.request_close.present? && current_user.id != @match.player_1_id %>
           <h1>Il giocatore 2 vuole terminare la partita</h1>
           <div class="btn-group">
-            <%= link_to('Accetta', manage_matches_close_match_path(match_id: @match.id , choise: true), class: "btn btn-success") %>
-            <%= link_to('Rifiuta', manage_matches_close_match_path(match_id: @match.id , choise: false), class: "btn btn-danger") %>
+            <%= link_to('Accetta', manage_matches_close_match_path(match_id: @match.id , choice: 1), class: "btn btn-success") %>
+            <%= link_to('Rifiuta', manage_matches_close_match_path(match_id: @match.id , choice: 0), class: "btn btn-danger") %>
           </div>
           <%= link_to 'Torna indietro', game_count_display_path, :class => "btn btn-link"%>
         <% elsif @match.accept_close.present?  && current_user.id != @match.player_2_id %>
           <h1>Il giocatore 1 vuole terminare la partita</h1>
           <div class="btn-group">
-            <%= link_to('Accetta', manage_matches_close_match_path(match_id: @match.id , choise: true), class: "btn btn-success") %>
-            <%= link_to('Rifiuta', manage_matches_close_match_path(match_id: @match.id , choise: false), class: "btn btn-danger") %>
+            <%= link_to('Accetta', manage_matches_close_match_path(match_id: @match.id , choice: 1), class: "btn btn-success") %>
+            <%= link_to('Rifiuta', manage_matches_close_match_path(match_id: @match.id , choice: 0), class: "btn btn-danger") %>
           </div>
           <%= link_to 'Torna indietro', game_count_display_path, :class => "btn btn-link"%>
         <% else %>
@@ -50,9 +50,18 @@
       </div>
       <div class="col-md-4">
         <h3>Vinte</h3>
-        <h2><%= @match.p1_win %></h2>
+        <%if current_user.id == @match.player_1_id%>
+          <h2><%= @match.p1_win %></h2>
+        <% else %>
+          <h2><%= @match.p2_win %></h2>
+        <% end %>
         <h3>Perse</h3>
-        <h2><%= @match.p2_win %></h2>
+        <%if current_user.id == @match.player_1_id%>
+          <h2><%= @match.p2_win %></h2>
+        <% else %>
+          <h2><%= @match.p1_win %></h2>
+        <% end %>
+        
       </div>
     </div>
   </div>

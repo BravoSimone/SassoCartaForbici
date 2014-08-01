@@ -19,17 +19,29 @@ class ManageMatchesController < ApplicationController
   def close_match
     @close = params[:close]
     @match = Match.find(params[:match_id].to_i)
-    @choise = params[:choise]
-    if @choise.present?
-      if @choise
-        @match.request_close = 1
-        @match.accept_close = 1
-        @match.save
-      else
-        @match.request_close = nil
-        @match.accept_close = nil
-        @match.save
-      end
+    @choice = params[:choice].to_i
+    
+    
+    p "____________________"
+    p @choice
+    p "Sono qui"
+    p @match
+    p "____________________"
+    
+    if @choice == 0
+      p "____________________"
+      p "Il match rimane aperto"
+      p "____________________"
+      @match.request_close = nil
+      @match.accept_close = nil
+      @match.save
+    elsif @choice == 1
+      p "____________________"
+      p "Chiudo il match"
+      p "____________________"
+      @match.request_close = 1
+      @match.accept_close = 1
+      @match.save
     end
     if @close
       if current_user.id == @match.player_1_id

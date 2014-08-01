@@ -18,7 +18,8 @@ Rails.application.routes.draw do
   get 'manage_matches/generate_match'
   
   get 'manage_matches/close_match'
-
+  
+  get 'users/sign_out'
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

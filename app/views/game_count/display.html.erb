@@ -16,8 +16,16 @@
           <td><%= match.player_2.email unless match.player_2.nil? %></td>
           <td><%= match.p1_win %></td>
           <td><%= match.p2_win %></td>
-          <td><%= match.request_close %></td>
-          <td><%= match.accept_close %></td>
+          <td>
+          <% if (match.request_close)%>
+            <%= "Si" %>
+          <% end %>
+          </td>
+          <td>
+          <% if (match.accept_close)%>
+            <%= "Si" %>
+          <% end %>
+          </td>
         <% end %>
       </form>
     </tr>
