@@ -19,8 +19,9 @@ class ManageMatchesController < ApplicationController
   def close_match
     @close = params[:close]
     @match = Match.find(params[:match_id].to_i)
-    if params[:choise].present?
-      if params[:choise] == true
+    @choise = params[:choise]
+    if @choise.present?
+      if @choise
         @match.request_close = 1
         @match.accept_close = 1
         @match.save

@@ -55,17 +55,6 @@ class PlayController < ApplicationController
     @match_id = @match.id
     play = @match.match_plays.last
     
-    if play.present? && play.player_one_sign.present? && play.player_two_sign.present?
-      # Control the winner
-      @winner = Game.new.compare(play.player_one_sign, play.player_two_sign)
-      if @winner[-1].to_i == 1
-        @match.p1_win = @match.p1_win + 1
-      elsif @winner[-1].to_i == 2
-        @match.p2_win = @match.p2_win + 1
-      end
-      @match.save
-    end
-    
     if play.nil? || (play.player_one_sign.present? && play.player_two_sign.present?)
       play = Play.create({:players_match_id => @match_id})
     end
@@ -78,6 +67,17 @@ class PlayController < ApplicationController
     else
       play.player_two_sign = @sign
       play.save
+    end
+    
+    if play.present? && play.player_one_sign.present? && play.player_two_sign.present?
+      # Control the winner
+      @winner = Game.new.compare(play.player_one_sign, play.player_two_sign)
+      if @winner[-1].to_i == 1
+        @match.p1_win = @match.p1_win + 1
+      elsif @winner[-1].to_i == 2
+        @match.p2_win = @match.p2_win + 1
+      end
+    @match.save
     end
   end
 end
