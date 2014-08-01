@@ -20,25 +20,11 @@ class ManageMatchesController < ApplicationController
     @close = params[:close]
     @match = Match.find(params[:match_id].to_i)
     @choice = params[:choice].to_i
-    
-    
-    p "____________________"
-    p @choice
-    p "Sono qui"
-    p @match
-    p "____________________"
-    
     if @choice == 0
-      p "____________________"
-      p "Il match rimane aperto"
-      p "____________________"
       @match.request_close = nil
       @match.accept_close = nil
       @match.save
     elsif @choice == 1
-      p "____________________"
-      p "Chiudo il match"
-      p "____________________"
       @match.request_close = 1
       @match.accept_close = 1
       @match.save
